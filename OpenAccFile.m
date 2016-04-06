@@ -1,4 +1,4 @@
-function [time, x, y, z] = OpenAccFile(file)
+function [time, x, y, z, light] = OpenAccFile(file)
 
 filename = file;
 delimiter = ',';
@@ -10,8 +10,9 @@ formatSpec = '%s%f%f%f%*s%*s%[^\n\r]';
 %	column2: double (%f)
 %   column3: double (%f)
 %	column4: double (%f)
+%   column5: double (%f)
 % For more information, see the TEXTSCAN documentation.
-formatSpec = '%s%f%f%f%*s%*s%[^\n\r]';
+formatSpec = '%s%f%f%f%f%*s%*s%[^\n\r]';
 
 %% Open the text file.
 fileID = fopen(filename,'r');
@@ -37,7 +38,7 @@ time = dataArray{:, 1};
 x = dataArray{:, 2};
 y = dataArray{:, 3};
 z = dataArray{:, 4};
-
+light = dataArray{:, 5};
 
 %% Clear temporary variables
 clearvars filename delimiter startRow formatSpec fileID dataArray ans;

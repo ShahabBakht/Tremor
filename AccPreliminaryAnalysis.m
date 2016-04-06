@@ -1,7 +1,7 @@
 %% read real data
 datalocation = 'C:\Users\labuser\Documents\GENEActiv\Data\';
-filename = 'Shahab_right wrist_026397_2016-02-23 08-26-15.csv';
-[time, x, y, z] = OpenAccFile([datalocation filename]);
+filename = 'LA__026397_2016-03-11 10-19-55.csv';
+[time, x, y, z, light] = OpenAccFile([datalocation filename]);
 xnd = detrend((x-min(x))./(max(x)-min(x)),'linear');
 ynd = detrend((y-min(y))./(max(y)-min(y)),'linear');
 znd = detrend((z-min(z))./(max(z)-min(z)),'linear');
@@ -79,9 +79,9 @@ end
 
 %% set multi-taper power spectrum parameters
 
-param.tapers = [7,13];
+param.tapers = [3,5];
 param.Fs = 100; % Hz
-param.fpass = [2 20];
+param.fpass = [2 40];
 param.pad = 0;
 param.err = [2 0.05];
 param.trialave = 1;
@@ -112,13 +112,23 @@ subplot(2,2,1);
 plot(f_mt_rest,10*log10(S_mt_ch_rest),'color',[0,0,0],'LineWidth',2);hold on
 plot(f_mt_rest,10*log10(Serr_rest(1,:)'),'-','color',[0.8 0.8 0.8]);hold on
 plot(f_mt_rest,10*log10(Serr_rest(2,:)),'-','color',[0.8 0.8 0.8]);hold on
-title('Rest Power Spectrum');xlabel('Frequency (Hz)')
+
+% For normalized power spectrum uncomment this:
+% plot(f_mt_rest,(10*log10(S_mt_ch_rest) - 10*log10(sum(S_mt_ch_rest))),'color',[0,0,0],'LineWidth',2);hold on
+% plot(f_mt_rest,(10*log10(Serr_rest(1,:)') - 10*log10(sum((Serr_rest(1,:)')))),'-','color',[0.8 0.8 0.8]);hold on
+% plot(f_mt_rest,(10*log10(Serr_rest(2,:)) - 10*log10(sum(Serr_rest(2,:)))),'-','color',[0.8 0.8 0.8]);hold on
+title('Rest Power Spectrum');xlabel('Frequency (Hz)');grid on
 
 subplot(2,2,2);
 plot(f_mt_posture,10*log10(S_mt_ch_posture),'color',[1,0,0],'LineWidth',2);hold on
 plot(f_mt_posture,10*log10(Serr_posture(1,:)'),'-','color',[1 0.8 .8]);hold on
 plot(f_mt_posture,10*log10(Serr_posture(2,:)),'-','color',[1 0.8 .8]);hold on
-title('Posture Power Spectrum');xlabel('Frequency (Hz)')
+
+% For normalized power spectrum uncomment this:
+% plot(f_mt_rest,(10*log10(S_mt_ch_posture) - 10*log10(sum(S_mt_ch_posture))),'color',[1,0,0],'LineWidth',2);hold on
+% plot(f_mt_rest,(10*log10(Serr_posture(1,:)') - 10*log10(sum((Serr_posture(1,:)')))),'-','color',[1 0.8 .8]);hold on
+% plot(f_mt_rest,(10*log10(Serr_posture(2,:)) - 10*log10(sum(Serr_posture(2,:)))),'-','color',[1 0.8 .8]);hold on
+title('Posture Power Spectrum');xlabel('Frequency (Hz)');grid on
 
 subplot(2,2,4);
 plot(f_mt_rest,10*log10(S_mt_ch_rest),'color',[0,0,0],'LineWidth',2);hold on
@@ -127,5 +137,13 @@ plot(f_mt_rest,10*log10(Serr_rest(2,:)),'-','color',[0.8 0.8 0.8]);hold on
 plot(f_mt_posture,10*log10(S_mt_ch_posture),'color',[1,0,0],'LineWidth',2);hold on
 plot(f_mt_posture,10*log10(Serr_posture(1,:)'),'-','color',[1 0.8 .8]);hold on
 plot(f_mt_posture,10*log10(Serr_posture(2,:)),'-','color',[1 0.8 .8]);hold on
-title('Rest and Posture Overlapped Power Spectrum');xlabel('Frequency (Hz)') 
+
+% For normalized power spectrum uncomment this:
+% plot(f_mt_rest,(10*log10(S_mt_ch_rest) - 10*log10(sum(S_mt_ch_rest))),'color',[0,0,0],'LineWidth',2);hold on
+% plot(f_mt_rest,(10*log10(Serr_rest(1,:)') - 10*log10(sum((Serr_rest(1,:)')))),'-','color',[0.8 0.8 0.8]);hold on
+% plot(f_mt_rest,(10*log10(Serr_rest(2,:)) - 10*log10(sum(Serr_rest(2,:)))),'-','color',[0.8 0.8 0.8]);hold on
+% plot(f_mt_rest,(10*log10(S_mt_ch_posture) - 10*log10(sum(S_mt_ch_posture))),'color',[1,0,0],'LineWidth',2);hold on
+% plot(f_mt_rest,(10*log10(Serr_posture(1,:)') - 10*log10(sum((Serr_posture(1,:)')))),'-','color',[1 0.8 .8]);hold on
+% plot(f_mt_rest,(10*log10(Serr_posture(2,:)) - 10*log10(sum(Serr_posture(2,:)))),'-','color',[1 0.8 .8]);hold on
+title('Rest and Posture Overlapped Power Spectrum');xlabel('Frequency (Hz)');grid on 
 
