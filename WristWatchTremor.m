@@ -9,6 +9,7 @@ classdef WristWatchTremor < handle
         Acceleration        % [X, Y, Z]
         Light               % measured light by the wrist watch within the interval
         CurrentRow
+        EndRow
     end
     
     methods
@@ -41,7 +42,7 @@ classdef WristWatchTremor < handle
                WRT.CurrentRow = WRT.CurrentRow + 1;
                t = WRT.ReadDateTime;
                e = etime(t,tinit);
-               if e == WRT.Length
+               if e >= WRT.Length
                    Stop = true;
                else
                    Stop = false;
@@ -57,7 +58,7 @@ classdef WristWatchTremor < handle
             
             WRT.Acceleration = [aX; aY; aZ];
             WRT.Light = lightacc;
-            
+            WRT.EndRow = WRT.CurrentRow;
         end
         
         function t = ReadDateTime(WRT)

@@ -1,6 +1,6 @@
 %% read real data
-datalocation = 'C:\Users\labuser\Documents\GENEActiv\Data\';
-filename = 'LA__026397_2016-03-11 10-19-55.csv';
+datalocation = 'D:\Data\Tremor\Patients\Debra Donaldson\';
+filename = 'DD_left wrist_026336_2016-04-08 09-46-47.csv';
 [time, x, y, z, light] = OpenAccFile([datalocation filename]);
 xnd = detrend((x-min(x))./(max(x)-min(x)),'linear');
 ynd = detrend((y-min(y))./(max(y)-min(y)),'linear');
@@ -12,7 +12,8 @@ x_noise = score(:,1);
 %% show raw data 
 Fs = 100;
 Epoch = 60 * Fs;
-figure;plot(x_noise,'b');title('raw data - select the start and the end of each trial!');
+figure;subplot(2,1,1);plot(x_noise,'b');title('raw data - select the start and the end of each trial!');
+subplot(2,1,2); plot(light,'r');
 
 %% select and cut the trials and conditions
 NumTrials = 3;
